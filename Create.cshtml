@@ -1,0 +1,83 @@
+@page
+@model Meetingroom.Pages.Bookings.CreateModel
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-calendar-plus"></i> Request a Meeting Room</h3>
+            </div>
+            <div class="card-body p-4">
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i> @Model.ErrorMessage
+                    </div>
+                }
+
+                @if (Model.SuccessMessage)
+                {
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> Booking request submitted successfully! 
+                        Waiting for admin confirmation.
+                    </div>
+                    <div class="text-center">
+                        <a asp-page="Index" class="btn btn-primary">View My Bookings</a>
+                    </div>
+                }
+                else
+                {
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="BookingRequest.RoomName" class="form-label">
+                                <i class="bi bi-door-open"></i> Room Name
+                            </label>
+                            <select asp-for="BookingRequest.RoomName" class="form-select">
+                                <option value="">-- Select Room --</option>
+                                <option value="Conference Room A">Conference Room A</option>
+                                <option value="Conference Room B">Conference Room B</option>
+                                <option value="Meeting Room 1">Meeting Room 1</option>
+                                <option value="Meeting Room 2">Meeting Room 2</option>
+                                <option value="Board Room">Board Room</option>
+                            </select>
+                            <span asp-validation-for="BookingRequest.RoomName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BookingRequest.EmployeeName" class="form-label">
+                                <i class="bi bi-person"></i> Your Name
+                            </label>
+                            <input asp-for="BookingRequest.EmployeeName" class="form-control" placeholder="Enter your name" />
+                            <span asp-validation-for="BookingRequest.EmployeeName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BookingRequest.BookingDateTime" class="form-label">
+                                <i class="bi bi-clock"></i> Date & Time
+                            </label>
+                            <input asp-for="BookingRequest.BookingDateTime" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="BookingRequest.BookingDateTime" class="text-danger"></span>
+                            <div class="form-text">Select when you need the room</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send"></i> Submit Booking Request
+                            </button>
+                            <a asp-page="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

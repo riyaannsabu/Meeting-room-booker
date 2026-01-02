@@ -1,0 +1,111 @@
+@page "{id:int}"
+@model Meetingroom.Pages.Bookings.DetailsModel
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0"><i class="bi bi-info-circle"></i> Booking Details</h3>
+            </div>
+            <div class="card-body p-4">
+                @if (Model.Booking == null)
+                {
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> Booking not found.
+                    </div>
+                }
+                else
+                {
+                    <dl class="row">
+                        <dt class="col-sm-4"><i class="bi bi-hash"></i> Booking ID:</dt>
+                        <dd class="col-sm-8">@Model.Booking.Id</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-door-open"></i> Room Name:</dt>
+                        <dd class="col-sm-8"><strong>@Model.Booking.RoomName</strong></dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-person"></i> Employee Name:</dt>
+                        <dd class="col-sm-8">@Model.Booking.EmployeeName</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-clock"></i> Date & Time:</dt>
+                        <dd class="col-sm-8">@Model.Booking.BookingDateTime.ToString("dddd, MMMM dd, yyyy hh:mm tt")</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-info-circle"></i> Status:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Booking.Status == "Confirmed")
+                            {
+                                <span class="badge bg-success fs-6">
+                                    <i class="bi bi-check-circle"></i> Confirmed
+                                </span>
+                            }
+                            else if (Model.Booking.Status == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark fs-6">
+                                    <i class="bi bi-clock-history"></i> Pending
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger fs-6">
+                                    <i class="bi bi-x-circle"></i> Cancelled
+                                </span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-calendar-check"></i> Created At:</dt>
+                        <dd class="col-sm-8">@Model.Booking.CreatedAt.ToString("MMM dd, yyyy hh:mm tt")</dd>
+
+                        @if (Model.Booking.UpdatedAt.HasValue)
+                        {
+                            <dt class="col-sm-4"><i class="bi bi-arrow-clockwise"></i> Last Updated:</dt>
+                            <dd class="col-sm-8">@Model.Booking.UpdatedAt.Value.ToString("MMM dd, yyyy hh:mm tt")</dd>
+                        }
+
+                        <dt class="col-sm-4"><i class="bi bi-bookmark-check"></i> Can Book:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Booking.CanBook)
+                            {
+                                <span class="text-success"><i class="bi bi-check-circle-fill"></i> Yes</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger"><i class="bi bi-lock-fill"></i> No (Already Confirmed)</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <div class="alert alert-info mt-4">
+                        @if (Model.Booking.Status == "Confirmed")
+                        {
+                            <p class="mb-0">
+                                <i class="bi bi-check-circle"></i> <strong>This booking is confirmed!</strong> 
+                                The room is reserved for you at the scheduled time.
+                            </p>
+                        }
+                        else if (Model.Booking.Status == "Pending")
+                        {
+                            <p class="mb-0">
+                                <i class="bi bi-hourglass-split"></i> <strong>Awaiting confirmation.</strong> 
+                                An admin will review your booking request shortly.
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="mb-0">
+                                <i class="bi bi-x-circle"></i> <strong>This booking has been cancelled.</strong>
+                            </p>
+                        }
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <a asp-page="Index" class="btn btn-primary">
+                            <i class="bi bi-arrow-left"></i> Back to Bookings
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

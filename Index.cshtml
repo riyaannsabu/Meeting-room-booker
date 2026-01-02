@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center mt-5">
+    <i class="bi bi-building display-1 text-primary"></i>
+    <h1 class="display-4 mt-3">Welcome to Meeting Room Booker</h1>
+    <p class="lead mt-4">Efficiently manage conference room bookings for your organization</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-calendar-plus display-4 text-primary"></i>
+                    <h3 class="card-title mt-3">Book a Room</h3>
+                    <p class="card-text">Request a conference room for your meeting or client call</p>
+                    <a asp-page="/Bookings/Create" class="btn btn-primary btn-lg mt-3">
+                        <i class="bi bi-plus-circle"></i> Create Booking
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-list-check display-4 text-success"></i>
+                    <h3 class="card-title mt-3">View Bookings</h3>
+                    <p class="card-text">Check your existing bookings and their status</p>
+                    <a asp-page="/Bookings/Index" class="btn btn-success btn-lg mt-3">
+                        <i class="bi bi-list-ul"></i> View All Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-5" role="alert">
+        <i class="bi bi-info-circle"></i> <strong>How it works:</strong> 
+        Request a room → Admin reviews → Booking confirmed → Room is yours!
+    </div>
+</div>
